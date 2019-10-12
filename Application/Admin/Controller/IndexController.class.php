@@ -6,8 +6,9 @@ use Think\Controller;
 
 class IndexController extends Controller
 {
-  public function test()
+  public function index()
   {
-    $this->show('我是后台');
+//    $this->display();
+    $this->display('./index.html');  // 指定模板文件
   }
 }

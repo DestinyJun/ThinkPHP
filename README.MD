@@ -98,3 +98,18 @@ TP框架目录介绍
 * （1）当用户访问一个不存在的控制器时，TP会自动执行空控制器下的对用方法，此机制就是空控制器
 * （2）使用：只需要在放置控制器的文件夹中创建一个EmptyController.class控制器，再在空控制器中创建一个空操作函数即可提高用户体验
 * （3）如果空控制器中不存在要访问的方法，就是执行空操作函数
+### 13、display的使用
+* （1）获取要输出的内容,然后直接输出
+* （2）参数说明：
+    > * $templateFile
+    > * $charset
+    > * $contentType
+    > * $content
+    > * $prefix
+* （3）display方法如果不传递任何参数，TP会自动定位到当前控制下的对应的同名方法的模板中
+* （4）指定当前控制器下模板时，只需要传递模板的名称即可，不要后缀名：$this->display('index'')
+* （5）指定其他控制器下(TestController)的模板时，参数为：$this->display('Test:test'); 
+* （5）指定其他模块下的(Admin/Home模块)的模板时，参数为：$this->display('Admin@Index:add');
+* （5）使用完整的模板名称（实际开发中不建议使用）：$this->display('./index.html'); 
+### 13、fetch的使用
+* （1）获取要输出的内容然,需要手动输出（实际中用的很少）
