@@ -49,7 +49,7 @@ TP框架目录介绍
 * （3）创建自己的控制器类
 * （3）创建自己的方法
 ### 5、TP框架中四种URL访问模式介绍
-* （1）TP的默认方式访问格式(普通模式），次模式没有任何限制条件，在任何情况下都能使用
+* （1）TP的默认方式访问格式(普通模式），此模式没有任何限制条件，在任何情况下都能使用
     > * 通俗的访问地址是：`http://www.tp.com/Index.php?m=Admin&c=Index&a=test`
 * （2）pathinfo模式（注意：此模式需要服务器软件支持，目前不支持的只有nginx）：此模式在访问的地址格式上看起来比较像访问某一个目录下的文件，此模式比较符合搜索引擎优化
     > * 通俗的访问地址是：`http://www.tp.com/Index.php/Admin/Index/test/name/value`
@@ -139,3 +139,96 @@ TP框架目录介绍
 * （2）`$this->data = $data; `（很少用）
 * （3）模板解析：`<span>{$img}</span>`
 ### 16、系统变量
+* （1）系统变量就是TP内置的一个变量，对于系统变量可用直接在模板中使用，不需要进行任何赋值操作！
+* （2）对于TP的系统变量可以输出的内容包括TP内置的配置项信息、TP或者PHP内置的常量、PHP的超全局数组，对于在模板中使用系统变量是都是{$Think}开头
+### 17、TP的模板函数
+* （1）时间格式化模板函数{$time|date:'Y-m-d H:i:s',###}
+* （2）时间格式化特殊学写法{:(接上PHP原生代码)}：案例：{:date('Y-m-d H:i:s',$time)}
+* （3）生成连接地址的特殊写法：{:U('index','id=4')} （说明：“：”后面跟上TP的原生函数或者PHP的原生函数
+### 18、模板运算符
+* （1）在模板中执行简单的加减乘除运算：`{$a +\-\*\/ $b}`
+* （2）数组元素的运算：`{$data['a'] +\-\*\/ $data['b']}`,这里注意。数组元素的运算在TP模板引擎中不支持点语法，要用原生php的写法
+### 19、TP中模板引擎标签（比如if，foreach)
+* （1）foreach循环标签，案例写法：  
+``` php
+// name：指定具体需要循环的数据
+// item：指定每次循环的临时变量
+// key： 指定每次循环的下标
+<foreach name="list" item="vo" key="k">
+    {$k}|{$vo.id}:{$vo.name}
+</foreach>
+```
+* （2）if判断标签，案例写法： 
+``` php
+// condition 指定具体判断条件，eq、OR、gt为运算符为各种逻辑运算符
+// OR表示或者 AND表示并且
+// eq/equal => 等于
+//neq/notequal => 不等于
+//neq/notequal => 不等于 
+//gt => 大于 
+//egt => 大于等于
+//lt => 小于
+//elt => 小于等于
+//heq => 恒等于
+//nheq => 不恒等于
+<if condition="($name eq 1) OR ($name gt 100)"> [需要显示的html节点1]
+<else if condition="$name eq 2"/> [需要显示的html节点2]
+<else />[需要显示的html节点3]
+</if>
+```
+* （3）比较标签，案例：
+``` php
+// 比较标签：eq、neq、gt、egt、lt、elt、heq、nheq
+// name：消炎药判断到的变量名称
+// value：需要比较的值
+<比较标签 name="变量" value="值">
+    需要显示的内容
+</比较标签>
+```
+* （4）volist循环标签，案例：
+``` php
+// name：指定需要循环的变量名称
+// id：指定每次循环的临时变量名称
+// mod：其值是一个number类型，设置的值跟0在循环中交替出现，实现隔行变色（默认时0，1交替出现）
+// empty：当循环的变量为空时显示的值
+// offset：指定循环偏移量（指定具体从哪一个元素开始循环）
+// length：指定具体的循环次数
+// key：指定具体循环的下标变量名称，具体下标对应的值（1，2，3......)
+// $key：可用拿到具体下标
+<volist name="lisy" id="vo" mod="2" empty="没有内容" offset="2" legth="2" key="keys"></volist>
+```
+### 20、TP中实现模板共用
+* （1）file地址拼接跪着：模块/控制器/操作
+* （1）第一种写法：<include file="Public/header" /> （默认就是当前目录下的模板文件，模板文件中只需要放置公共部分的html代码即可）
+* （1）第二种写法：<include file="Public：header" /> （默认就是当前目录下的模板文件，模板文件中只需要放置公共部分的html代码即可）
+* （3）第三种写法：直接包含模板文件：<include file="./Application/Home/View/Public/header.html" /> （把路径写全即可）
+### 21、TP中的视图创建规则（建议，不是一定）
+* （1）TP建议将模块的具体视图文件放到对应模块的view目录中
+* （2）TP建议根据具体的控制器在视图的View目录下创建同名的目录
+* （3）TP建议将具体的视图模板文件名称跟具体的方法名称保持一致
+* （4）TP建议将各个控制器具体的视图模板文件放置到View目录下的跟控制器同名的目录下
+### 22、TP中的模板继承
+* （1）需要继承的基础模板：
+``` html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>模板继承-父模板</title>
+  <link rel="stylesheet" href="">
+</head>
+<body>
+<block name="header"><h3>我是头部</h3></block>
+<block name="content"><h3>我是内容</h3></block>
+<block name="footer"><h3>我是底部</h3></block>
+</body>
+<block name="js"><h3>我是js</h3></block>
+</html>
+```
+* （2）子模版继承并按需实现（实现的位置会替换基础模板中的html，不实现的位置将显示基础模板中的html，由此实现代码复用及前端组件化）：
+``` html
+<extend name="Public/base" />
+<block name="content">
+  <h1>商品添加</h1>
+</block>
+```

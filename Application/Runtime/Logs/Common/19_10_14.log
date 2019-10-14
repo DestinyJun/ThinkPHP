@@ -1,0 +1,36 @@
+[ 2019-10-14T22:43:15+08:00 ] 127.0.0.1 /top.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000009s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000647s ]
+ERR: 无法加载模块:Top
+
+[ 2019-10-14T22:43:16+08:00 ] 127.0.0.1 /left.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000009s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000612s ]
+ERR: 无法加载模块:Left
+
+[ 2019-10-14T22:43:16+08:00 ] 127.0.0.1 /right.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000008s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000774s ]
+ERR: 无法加载模块:Right
+
+[ 2019-10-14T22:44:19+08:00 ] 127.0.0.1 /left.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000008s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000733s ]
+ERR: 无法加载模块:Left
+
+[ 2019-10-14T22:44:19+08:00 ] 127.0.0.1 /top.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000009s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000724s ]
+ERR: 无法加载模块:Top
+
+[ 2019-10-14T22:44:19+08:00 ] 127.0.0.1 /right.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000010s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000809s ]
+ERR: 无法加载模块:Right
+
