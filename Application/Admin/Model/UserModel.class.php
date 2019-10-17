@@ -41,4 +41,15 @@ final class userModel extends Model
     }
   }
   // 校验nikename的公共方法check_nike()需要卸载TP指定的目录下：Application/Common/Common/function.php文件里面
+
+  // 重写钩子函数
+  public function _before_insert(&$data, $options)
+  {
+    dump($data);
+  }
+
+  public function _after_insert($data, $options)
+  {
+    dump($data);
+  }
 }

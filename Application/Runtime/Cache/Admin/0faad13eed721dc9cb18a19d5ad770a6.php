@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<?php if (!defined('THINK_PATH')) exit();?><!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -28,21 +28,19 @@
     </tr>
     </thead>
     <tbody>
-    <volist name="data" id="vo">
-    <tr>
-      <td>{$vo.id}</td>
-      <td>{$vo.name}</td>
-      <td><img src="/{$vo.avatar}" alt="" width="50px" height="50px"></td>
-    </tr>
-    </volist>
+    <?php if(is_array($data)): $i = 0; $__LIST__ = $data;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><tr>
+      <td><?php echo ($vo["id"]); ?></td>
+      <td><?php echo ($vo["name"]); ?></td>
+      <td><img src="/<?php echo ($vo["avatar"]); ?>" alt="" width="50px" height="50px"></td>
+    </tr><?php endforeach; endif; else: echo "" ;endif; ?>
     </tbody>
   </table>
 </div>
 <div class="page">
-  {$page}
+  <?php echo ($page); ?>
 </div>
 <div class="code">
-  <img src="{:U('captcha','timer=4')}" alt="验证码">
+  <img src="<?php echo U('captcha','timer=4');?>" alt="验证码">
 </div>
 </body>
 </html>

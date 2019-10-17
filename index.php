@@ -20,8 +20,11 @@ define('APP_DEBUG',true);
 // 定义目录分隔符
 define('DS',DIRECTORY_SEPARATOR);
 
-// 定义应用存储目录目录
+// 定义应用存储目录
 define('APP_PATH','./Application'.DS);
+
+// 设置应用编码
+header('content-type:text/html;charset=utf-8');
 
 // 引入ThinkPHP入口文件
 require './ThinkPHP/ThinkPHP.php';
