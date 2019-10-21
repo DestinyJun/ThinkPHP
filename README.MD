@@ -9,6 +9,7 @@
   > * IS_AJAX：判断是否是ajax请求
   > * ajaxReturn：TP在控制器基类中给我们提供了一个返回ajax请求数据的成员方法
   > * ajaxReturn：TP在控制器基类中给我们提供了一个格式化树形结构数据的成员方法
+  > * $model->error='***'：TP在数据模型中提供的设置数据模型错误的信息的方法，在控制器中时跳转
 * TP中的一些调试配置的开启：
   > *   'SHOW_PAGE_TRACE' => true,    // 开启TP的开发者工具
 ### 1、版本选择
@@ -98,6 +99,8 @@ TP框架目录介绍
    > * 1 (PATHINFO 模式);
    > * 2 (REWRITE  模式) ——重写模式; 
    > * 3 (兼容模式)  默认为PATHINFO 模式
+* （4）使用U函数在模板中生成连接时，传递的参数如果是一个变量，那么拼接时不能再用PHP的.符号读取参数，而是要用[]，案例：
+   > * ` href="{:U('edit','id='.$item['id'])}"`
 ### 9、页面跳转提示
 * 使用TP的控制器基类里面的$this->success及$this->error函数即可
 * 其默认提示的html模板是可用修改的，在ThinkPHP的Tpl文件夹下面的dispatch_jump.tpl文件修改即可
@@ -184,6 +187,8 @@ TP框架目录介绍
 //elt => 小于等于
 //heq => 恒等于
 //nheq => 不恒等于
+// 注意：if的condition里面的判断条件在判断符号（如eq）后的参数不能用.语法，必须用php的原生语法，否则无法解析：
+//<if condition="$category.parent_id eq $item['id']"> selected </if>
 <if condition="($name eq 1) OR ($name gt 100)"> [需要显示的html节点1]
 <else if condition="$name eq 2"/> [需要显示的html节点2]
 <else />[需要显示的html节点3]
@@ -197,6 +202,7 @@ TP框架目录介绍
 <比较标签 name="变量" value="值">
     需要显示的内容
 </比较标签>
+注意：使用eq嵌套到循环标签里面时，其name的值不用$符号
 ```
 * （4）volist循环标签，案例：
 ``` php
@@ -238,7 +244,7 @@ TP框架目录介绍
 <block name="js"><h3>我是js</h3></block>
 </html>
 ```
-* （2）子模版继承并按需实现（实现的位置会替换基础模板中的html，不实现的位置将显示基础模板中的html，由此实现代码复用及前端组件化）：
+* （2）子模版继承并按需实现（实现的位置会依次替换基础模板中的block标签处的内容，不实现的位置将显示基础模板中的html，由此实现代码复用及前端组件化）：
 ``` html
 <extend name="Public/base" />
 <block name="content">
@@ -321,6 +327,7 @@ TP框架目录介绍
   ```
 * （3）save：修改一条数据，成功后返回受影响的函数，失败返回false，传入的参数是需要修改的字段的及需要修改数据的主键id的一维数组，案例：  
 ``` php
+    // 如果里面具有id值的话，就无需再单独传递ID值以及使用where方法了，save会自动解析里面的id值进行处理
     $model = D('user');
     $res = $model->save(
       array(
